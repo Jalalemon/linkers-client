@@ -1,27 +1,47 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext, AuthContexts } from "../../auth/AuthProvider";
 
 // register
 import "./../Login.js/Login.css";
 
 const Register = () => {
+
 //   const { createUser } = useContext(AuthContext);
 
   // register handler
-const {createUser} = useContext(AuthContexts)
+const { createUser, updateUser } = useContext(AuthContexts);
   const {register, handleSubmit, formState: {errors}} = useForm()
  const [signUpError, setSignUpError] = useState("");
+ const navigate = useNavigate();
+ 
   const handleSignUp = (data) => {
     console.log(data);
+    setSignUpError('')
 
     createUser(data.email, data.password)
     .then(result => {
         const user = result.user;
         console.log(user);
+         toast.success("user created successfully");
+         const userInfo = {
+            displayName: data.name
+          }
+          updateUser(userInfo)
+          .then(() => {
+            navigate("/");
+           
+          } )
+
+          .catch(error => (error))
+    
     })
-    .then(error => console.error(error))
+    .catch(error => {
+         setSignUpError(error.message);
+         console.error(error);
+    })
 
     // event.preventDefault();
     // const form = event.target;
@@ -102,11 +122,11 @@ const {createUser} = useContext(AuthContexts)
                   {errors.password?.message}
                 </p>
               )}
-              {signUpError && <p className="text-red-600">{signUpError} </p>}
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Sign up</button>
             </div>
+            {signUpError && <p className="text-red-600">{signUpError} </p>}
           </form>
           <p className="text-center">
             Already have an account? please{" "}
