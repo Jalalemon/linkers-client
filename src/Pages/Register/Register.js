@@ -13,7 +13,7 @@ const Register = () => {
 
   // register handler
 const { createUser, updateUser } = useContext(AuthContexts);
-  const {register, handleSubmit, formState: {errors}} = useForm()
+  const {register, handleSubmit, formState: {errors}} = useForm();
  const [signUpError, setSignUpError] = useState("");
  const navigate = useNavigate();
  
@@ -124,7 +124,7 @@ const { createUser, updateUser } = useContext(AuthContexts);
               )}
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign up</button>
+              <button className="btn type='submit' btn-primary">Sign up</button>
             </div>
             {signUpError && <p className="text-red-600">{signUpError} </p>}
           </form>

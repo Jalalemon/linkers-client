@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Waltoncart from './Waltoncart';
+import BookingModal from '../Bookings/BookingModal';
+import SingerCart from './SingerCart';
+
 
 const SingerCategories = () => {
       const [categories, setCategories] = useState([]);
-
+       const [treatement, setTreatment] = useState(null);
       useEffect(() => {
-        fetch("singerCategories.json")
+        fetch("http://localhost:5000/singerCategories")
           .then((res) => res.json())
           .then((data) => setCategories(data));
       }, []);
@@ -13,9 +15,19 @@ const SingerCategories = () => {
         <div>
           <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ">
             {categories.map((category) => (
-              <Waltoncart key={category._id} category={category}></Waltoncart>
+              <SingerCart
+                key={category._id}
+                setTreatment={setTreatment}
+                category={category}
+              ></SingerCart>
             ))}
           </div>
+          {treatement && (
+            <BookingModal
+              treatement={treatement}
+              setTreatment={setTreatment}
+            ></BookingModal>
+          )}
         </div>
       );
 };

@@ -6,6 +6,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Myorders from "../Dashboard/Myorders";
 import MyProducts from "../Dashboard/MyProducts";
 import DashboardLayout from "../Layout/DashboardLayout";
+import MarcelCategories from "../Pages/Home/MarcelCategories";
 import SingerCategories from "../Pages/Home/SingerCategories";
 import WaltonCategories from "../Pages/Home/WaltonCategories";
 import Login from "../Pages/Login.js/Login";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/singercategories",
         element: <SingerCategories></SingerCategories>,
+      },
+      {
+        path: "/marcelcategories",
+        element: <MarcelCategories></MarcelCategories>,
       },
       {
         path: "/login",

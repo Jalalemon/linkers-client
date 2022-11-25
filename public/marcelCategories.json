@@ -1,6 +1,6 @@
 [
     {
-    "_id": "637e5b3965d3c53265905064",
+
     "index": 3,
     "guid": "078b26c9-0347-4baf-a4e9-868603fe3d69",
     "isActive": true,
@@ -45,7 +45,7 @@
     "favoriteFruit": "banana"
   },
     {
-    "_id": "637e5b391392b7a60e5fba56",
+
     "index": 3,
     "guid": "1e18cabc-3c85-4731-8d1b-85d5d30bed63",
     "isActive": false,

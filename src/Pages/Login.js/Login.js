@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContexts } from "../../auth/AuthProvider";
 
@@ -15,7 +16,7 @@ function Login() {
    handleSubmit,
  } = useForm();
 
- const { signIn } = useContext(AuthContexts)
+ const { signIn, signInGoogle } = useContext(AuthContexts);
  const [loginError, setLoginError] = useState("");
  const location = useLocation();
  const navigate = useNavigate();
@@ -42,6 +43,17 @@ function Login() {
        setLoginError(error.message);
      });
  };
+   const handleGoogleSignIn = () => {
+     signInGoogle()
+       .then((result) => {
+         const user = result.user;
+
+         console.log(user);
+         toast.success("congrats! logged successfully");
+         navigate(from, { replace: true });
+       })
+       .catch((error) => console.error(error));
+   };
  return (
    <div className="h-[800px] flex justify-center items-center ">
      <div className="w-96 p-7">
@@ -86,16 +98,9 @@ function Login() {
          <label className="label">
            <span className="label-text">Choose account</span>
          </label>
-         <select
-           name="slot"
-           className="select select-bordered max-w-xs w-full"
-         >
-           <option value='buyers'>
-            Buyers
-           </option>
-           <option value='sellers'>
-             Sellers
-           </option>
+         <select name="slot" className="select select-bordered max-w-xs w-full">
+           <option value="buyers">Buyers</option>
+           <option value="sellers">Sellers</option>
          </select>
          <input className="btn btn-accent w-full" value="login" type="submit" />
          <div>
@@ -112,7 +117,12 @@ function Login() {
        </p>
        <div className="flex flex-col w-full border-opacity-50">
          <div className="divider">OR</div>
-         <button className="btn btn-outline w-full">login with google</button>
+         <button
+           onClick={handleGoogleSignIn}
+           className="btn btn-outline w-full"
+         >
+           login with google
+         </button>
        </div>
      </div>
    </div>
