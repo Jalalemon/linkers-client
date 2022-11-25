@@ -1,82 +1,99 @@
-import React from 'react';
+import moment from 'moment/moment';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { AuthContexts } from '../auth/AuthProvider';
 
 const AddProducts = () => {
+  const {user} = useContext(AuthContexts)
  const {
    register,
    handleSubmit,
    formState: { errors },
  } = useForm();
+const myDate = new Date();
+const onDate = moment().format('LLLL')
+console.log(onDate);
 
  const handleFormSubmit =(data) =>{
     console.log(data.category);
     
     <>
-    {
-        data.category === "singer" &&
-         fetch("http://localhost:5000/singers", {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-       },
-       body: JSON.stringify(data),
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         if (data.acknowledged) {
-         
-           toast.success(" Singer Product Added successfully");
-           //    refetch();
-         } else {
-           toast.error(data.message);
-         }
-       })
-    },
-    {
-        data.category === "walton" &&
-         fetch("http://localhost:5000/walton", {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-       },
-       body: JSON.stringify(data),
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         if (data.acknowledged) {
-         
-           toast.success("walton Product Added successfully");
-           //    refetch();
-         } else {
-           toast.error(data.message);
-         }
-       })
-    },
-    {
-        data.category === "marcel" &&
-         fetch("http://localhost:5000/marcel", {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-       },
-       body: JSON.stringify(data),
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         if (data.acknowledged) {
-         
-           toast.success("marcel Product Added successfully");
-           //    refetch();
-         } else {
-           toast.error(data.message);
-         }
-       })
-    }
-    </>
+      {
+      fetch("http://localhost:5000/allCategories", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            //    refetch();
+          } else {
+            toast.error(data.message);
+          }
+        })
+        }
+      {data.category === "singer" &&
+        fetch("http://localhost:5000/singers", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              toast.success(" Singer Product Added successfully");
+              //    refetch();
+            } else {
+              toast.error(data.message);
+            }
+          })}
+      ,
+      {data.category === "walton" &&
+        fetch("http://localhost:5000/walton", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              toast.success("walton Product Added successfully");
+              //    refetch();
+            } else {
+              toast.error(data.message);
+            }
+          })}
+      ,
+      {data.category === "marcel" &&
+        fetch("http://localhost:5000/marcel", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              toast.success("marcel Product Added successfully");
+              //    refetch();
+            } else {
+              toast.error(data.message);
+            }
+          })}
+    </>;
 
  }
     return (
@@ -84,6 +101,9 @@ const AddProducts = () => {
         <div className="py-20 bg-base-200">
           <div className="hero-content ">
             <div className="card w-full shadow-2xl bg-base-100">
+              <div className="text-3xl font-bold mt-5 text-center text-cyan-400 ">
+                Add your Product
+              </div>
               <form
                 onSubmit={handleSubmit(handleFormSubmit)}
                 className="card-body py-20 grid gape-4 grid-cols-1 lg:grid-cols-2"
@@ -150,6 +170,7 @@ const AddProducts = () => {
                   <input
                     {...register("address")}
                     type="text"
+                    name="address"
                     placeholder="location"
                     className="input input-bordered"
                   />
@@ -161,6 +182,7 @@ const AddProducts = () => {
                   <input
                     {...register("about")}
                     type="text"
+                    name="about"
                     placeholder="description"
                     className="input input-bordered"
                   />
@@ -176,17 +198,18 @@ const AddProducts = () => {
                     className="input input-bordered"
                   />
                 </div>
+
                 <div className="form-control ">
                   <label className="label">
                     <span className="label-text">used year</span>
                   </label>
 
-                   <select
+                  <select
                     {...register("index")}
                     name="index"
                     className="select select-bordered w-full"
                   >
-                    <option defaultValue='1'>1</option>
+                    <option defaultValue="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -194,13 +217,14 @@ const AddProducts = () => {
                     <option value="6">6</option>
                   </select>
                 </div>
-                  {/* <input
+
+                {/* <input
                     {...register("index")}
                     type="text"
                     placeholder="purchase year"
                     className="input input-bordered"
                   /> */}
-             
+
                 {/* <div className="form-control ">
                   <label className="label">
                     <span className="label-text">Category</span>
@@ -225,6 +249,36 @@ const AddProducts = () => {
                     <option value="singer">Singer</option>
                     <option value="marcel">Marcel</option>
                   </select>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Registered time</span>
+                  </label>
+                  <input
+                    {...register("registered")}
+                    type="text"
+                   
+                    name="registered"
+                    placeholder="registered"
+                    value={onDate}
+                    className="input input-bordered"
+                    disabled
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    {...register("email")}
+                    type="text"
+                    
+                    name="email"
+                    placeholder="email"
+                   value={user?.email}
+                    className="input input-bordered"
+                    disabled
+                  />
                 </div>
                 <div className="form-control mt-6">
                   <button className="btn btn-primary">Submit</button>

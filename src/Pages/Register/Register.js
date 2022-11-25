@@ -31,7 +31,9 @@ const { createUser, updateUser } = useContext(AuthContexts);
           }
           updateUser(userInfo)
           .then(() => {
-            navigate("/");
+
+            saveUser(data.name, data.email)
+            // navigate("/");
            
           } )
 
@@ -57,6 +59,22 @@ const { createUser, updateUser } = useContext(AuthContexts);
     //     form.reset();
     //   })
     //   .catch((error) => console.error(error));
+  };
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // setCreatedUser(email);
+        // getUserToken(email)
+        navigate('/')
+      });
   };
   return (
     <div className="hero w-full login my-20">
