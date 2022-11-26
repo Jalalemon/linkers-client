@@ -5,7 +5,9 @@ import Allsellers from "../Dashboard/Allsellers";
 import Dashboard from "../Dashboard/Dashboard";
 import Myorders from "../Dashboard/Myorders";
 import MyProducts from "../Dashboard/MyProducts";
+import AdminRoutes from "../Layout/AdminRoutes";
 import DashboardLayout from "../Layout/DashboardLayout";
+import AllUsers from "../Pages/Bookings/AllUsers";
 import MarcelCategories from "../Pages/Home/MarcelCategories";
 import SingerCategories from "../Pages/Home/SingerCategories";
 import WaltonCategories from "../Pages/Home/WaltonCategories";
@@ -61,23 +63,39 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/addproducts",
-        element: <AddProducts></AddProducts>
+        element: <AddProducts></AddProducts>,
       },
       {
         path: "/dashboard/myproducts",
-        element: <MyProducts></MyProducts>
+        element: <MyProducts></MyProducts>,
       },
       {
         path: "/dashboard/allsellers",
-        element: <Allsellers></Allsellers> ,
+        element: (
+          <AdminRoutes>
+            <Allsellers></Allsellers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/dashboard/allbuyers",
-        element: <Allbuyers></Allbuyers>,
+        element: (
+          <AdminRoutes>
+            <Allbuyers></Allbuyers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/dashboard/myorders",
-        element: <Myorders></Myorders>
+        element: <Myorders></Myorders>,
+      },
+      {
+        path: "/dashboard/allusers",
+        element: (
+          <AdminRoutes>
+            <AllUsers></AllUsers>
+          </AdminRoutes>
+        ),
       },
     ],
   },

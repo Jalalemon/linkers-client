@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext, AuthContexts } from "../../auth/AuthProvider";
+import useToken from "../../Hoooks/useToken";
 
 // register
 import "./../Login.js/Login.css";
@@ -15,7 +16,13 @@ const Register = () => {
 const { createUser, updateUser } = useContext(AuthContexts);
   const {register, handleSubmit, formState: {errors}} = useForm();
  const [signUpError, setSignUpError] = useState("");
+ const [createdUser, setCreatedUser] = useState("");
+ const [token] = useToken(createdUser);
  const navigate = useNavigate();
+
+ if(token){
+  navigate('/')
+ }
  
   const handleSignUp = (data) => {
     console.log(data);
@@ -57,23 +64,13 @@ const { createUser, updateUser } = useContext(AuthContexts);
     })
       .then((res) => res.json())
       .then((data) => {
-        // setCreatedUser(email);
-        getUserToken(email)
+        setCreatedUser(email);
+        // getUserToken(email)
       
       });
   };
 
-  const getUserToken = email =>{
-    fetch(`http://localhost:5000/jwt?email=${email}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.accessToken){
-        localStorage.setItem("accessToken", data.accessToken);
-       navigate('/')
-      }
-    })
-  }
+
   return (
     <div className="hero w-full login my-20">
       <div className="hero-content w-full p-0">
