@@ -44,22 +44,8 @@ const { createUser, updateUser } = useContext(AuthContexts);
          setSignUpError(error.message);
          console.error(error);
     })
-
-    // event.preventDefault();
-    // const form = event.target;
-    // const password = form.password.value;
-    // const email = form.email.value;
-    // const name = form.name.value;
-    // console.log(email, password, name);
-    // createUser(email, password)
-    //   .then((result) => {
-    //     const user = result.user;
-    //     console.log(user);
-      
-    //     form.reset();
-    //   })
-    //   .catch((error) => console.error(error));
   };
+
   const saveUser = (name, email) => {
     const user = { name, email };
     fetch("http://localhost:5000/users", {
@@ -72,10 +58,22 @@ const { createUser, updateUser } = useContext(AuthContexts);
       .then((res) => res.json())
       .then((data) => {
         // setCreatedUser(email);
-        // getUserToken(email)
-        navigate('/')
+        getUserToken(email)
+      
       });
   };
+
+  const getUserToken = email =>{
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.accessToken){
+        localStorage.setItem("accessToken", data.accessToken);
+       navigate('/')
+      }
+    })
+  }
   return (
     <div className="hero w-full login my-20">
       <div className="hero-content w-full p-0">
