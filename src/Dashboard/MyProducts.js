@@ -71,7 +71,6 @@ const MyProducts = () => {
                  <td>{booking.company}</td>
                  <td>{booking.price ? booking.price : booking.balance} </td>
                  <td>{booking.registered}</td>
-                 <td>{booking.slot} </td>
                  <td>
                    <label
                      onClick={() => setDeletingUsers(booking)}
