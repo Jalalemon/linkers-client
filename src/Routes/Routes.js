@@ -71,18 +71,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allsellers",
-        element: (
-          <AdminRoutes>
-            <Allsellers></Allsellers>
-          </AdminRoutes>
-        ),
+        loader: () => fetch("http://localhost:5000/usersquery?role=seller"),
+        element: <Allsellers></Allsellers>,
       },
       {
         path: "/dashboard/allbuyers",
+        loader: () => fetch("http://localhost:5000/usersquery?role=Buyer"),
         element: (
-          <AdminRoutes>
+       
             <Allbuyers></Allbuyers>
-          </AdminRoutes>
+         
         ),
       },
       {
@@ -91,11 +89,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allusers",
-        element: (
-          <AdminRoutes>
-            <AllUsers></AllUsers>
-          </AdminRoutes>
-        ),
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

@@ -37,7 +37,7 @@ const AllUsers = () => {
 
   const handleMakeAdmin = (id) => {
     fetch(`http://localhost:5000/users/admin/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -59,7 +59,8 @@ const AllUsers = () => {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Job</th>
+              <th>email</th>
+              <th>role</th>
               <th>Admin</th>
               <th>Delete</th>
             </tr>
@@ -70,6 +71,7 @@ const AllUsers = () => {
                 <th>{i + 1} </th>
                 <td>{user.name} </td>
                 <td>{user.email}</td>
+                <td>{user.role}</td>
 
                 <td>
                   {" "}

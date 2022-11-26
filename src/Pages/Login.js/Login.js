@@ -124,7 +124,7 @@ const { user } = useContext(AuthContexts);
             name="role"
             className="select select-bordered max-w-xs w-full"
           >
-            <option defaultValue='buyer'>Buyer</option>
+            <option defaultValue='Buyer'>Buyer</option>
             <option value="seller">Seller</option>
           </select>
           <input

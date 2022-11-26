@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContexts } from '../auth/AuthProvider';
+import ConfirmationModal from '../Pages/Bookings/ConfirmationModal';
 import Loading from '../Pages/Bookings/Loading';
 import Waltoncart from '../Pages/Home/Waltoncart';
 import MyproductCart from './MyproductCart';
@@ -9,9 +11,12 @@ import MyproductCart from './MyproductCart';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContexts);
-
-    const url = `http://localhost:5000/allCategories?email=${user?.email}`;
-    const { data: bookings = [], isLoading } = useQuery({
+ const [deletingUsers, setDeletingUsers] = useState(null);
+ const closeMOdal = () => {
+   setDeletingUsers(null);
+ };
+    const url = `http://localhost:5000/myProducts?email=${user?.email}`;
+    const { data: bookings = [], refetch, isLoading } = useQuery({
       queryKey: ["bookings", user?.email],
       queryFn: async () => {
         const res = await fetch(url, {
@@ -24,6 +29,23 @@ const MyProducts = () => {
         return data;
       },
     });
+
+      const handleDeleteUsers = (booking) => {
+        fetch(`http://localhost:5000/myProducts/${booking._id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.deletedCount > 0) {
+              refetch();
+              toast.success(`product ${user.name} deleted successfully`);
+            }
+          });
+      }; 
 
     if (isLoading) {
       return <Loading></Loading>;
@@ -48,8 +70,17 @@ const MyProducts = () => {
                  <th>{i + 1}</th>
                  <td>{booking.company}</td>
                  <td>{booking.price ? booking.price : booking.balance} </td>
-                 <td>{booking.appointmentDate}</td>
+                 <td>{booking.registered}</td>
                  <td>{booking.slot} </td>
+                 <td>
+                   <label
+                     onClick={() => setDeletingUsers(booking)}
+                     htmlFor="confirmation-modal"
+                     className="btn btn-sm btn-error"
+                   >
+                     Delete
+                   </label>
+                 </td>
                  <td>
                    {booking.balance && !booking.paid && (
                      <Link to={`/dashboard/payment/${booking._id}`}>
@@ -65,6 +96,16 @@ const MyProducts = () => {
              ))}
          </tbody>
        </table>
+       {deletingUsers && (
+         <ConfirmationModal
+           title={`are you sure you want to delete`}
+           message={`if you delete ${deletingUsers.name}`}
+           closeMOdal={closeMOdal}
+           successBtnName={"Delete"}
+           successAction={handleDeleteUsers}
+           modalData={deletingUsers}
+         ></ConfirmationModal>
+       )}
      </div>
    );
 };

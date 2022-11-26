@@ -1,7 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import moment from 'moment/moment';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContexts } from '../auth/AuthProvider';
 
 const AddProducts = () => {
@@ -9,11 +11,14 @@ const AddProducts = () => {
  const {
    register,
    handleSubmit,
+
    formState: { errors },
  } = useForm();
+
 const myDate = new Date();
 const onDate = moment().format('LLLL')
 console.log(onDate);
+const navigate = useNavigate();
 
  const handleFormSubmit =(data) =>{
     console.log(data.category);
@@ -31,7 +36,8 @@ console.log(onDate);
         .then((data) => {
           console.log(data);
           if (data.acknowledged) {
-            //    refetch();
+              //  refetch();
+               navigate('/dashboard/myproducts')
           } else {
             toast.error(data.message);
           }
@@ -50,7 +56,8 @@ console.log(onDate);
             console.log(data);
             if (data.acknowledged) {
               toast.success(" Singer Product Added successfully");
-              //    refetch();
+                //  refetch();
+                   navigate("/dashboard/myproducts");
             } else {
               toast.error(data.message);
             }
@@ -69,7 +76,8 @@ console.log(onDate);
             console.log(data);
             if (data.acknowledged) {
               toast.success("walton Product Added successfully");
-              //    refetch();
+                //  refetch();
+                   navigate("/dashboard/myproducts");
             } else {
               toast.error(data.message);
             }
@@ -88,6 +96,7 @@ console.log(onDate);
             console.log(data);
             if (data.acknowledged) {
               toast.success("marcel Product Added successfully");
+                navigate("/dashboard/myproducts");
               //    refetch();
             } else {
               toast.error(data.message);
@@ -262,7 +271,7 @@ console.log(onDate);
                     placeholder="registered"
                     value={onDate}
                     className="input input-bordered"
-                    disabled
+                   
                   />
                 </div>
                 <div className="form-control">
@@ -277,7 +286,7 @@ console.log(onDate);
                     placeholder="email"
                    value={user?.email}
                     className="input input-bordered"
-                    disabled
+                   
                   />
                 </div>
                 <div className="form-control mt-6">
