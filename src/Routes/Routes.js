@@ -16,8 +16,10 @@ import WaltonCategories from "../Pages/Home/WaltonCategories";
 import Login from "../Pages/Login.js/Login";
 import Register from "../Pages/Register/Register";
 import Blog from "../Pages/shared/Blog";
+import BuyerRoutes from "../Pages/shared/BuyerRoutes";
 import DsplayError from "../Pages/shared/DsplayError";
 import Errorpage from "../Pages/shared/Errorpage";
+import SellerRoutes from "../Pages/shared/SellerRoutes";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../Layout/Main");
@@ -78,25 +80,47 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/addproducts",
-        element: <AddProducts></AddProducts>,
+        element: (
+          <SellerRoutes>
+            {" "}
+            <AddProducts></AddProducts>
+          </SellerRoutes>
+        ),
       },
       {
         path: "/dashboard/myproducts",
-        element: <MyProducts></MyProducts>,
+        element: (
+          <SellerRoutes>
+            <MyProducts></MyProducts>
+          </SellerRoutes>
+        ),
       },
       {
         path: "/dashboard/allsellers",
         loader: () => fetch("http://localhost:5000/usersquery?role=seller"),
-        element: <Allsellers></Allsellers>,
+        element: (
+          <AdminRoutes>
+            <Allsellers></Allsellers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/dashboard/allbuyers",
         loader: () => fetch("http://localhost:5000/usersquery?role=Buyer"),
-        element: <Allbuyers></Allbuyers>,
+        element: (
+          <AdminRoutes>
+            <Allbuyers></Allbuyers>
+          </AdminRoutes>
+        ),
       },
       {
         path: "/dashboard/myorders",
-        element: <Myorders></Myorders>,
+        element: (
+          <BuyerRoutes>
+            {" "}
+            <Myorders></Myorders>
+          </BuyerRoutes>
+        ),
       },
       {
         path: "/dashboard/allusers",
@@ -108,7 +132,6 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/myOrder/${params.id}`),
       },
-     
     ],
   },
 ]);

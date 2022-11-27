@@ -55,13 +55,23 @@ console.log('ok bro',booking);
 
 const advertise = {
 productId: booking._id,
-company: booking.company
+company: booking.company,
+balance: booking.balance,
+picture: booking.picture,
+condition: booking.condition,
+address: booking.address,
+about: booking.about,
+price: booking.price,
+category: booking.category,
+registered: booking.registered,
+email: booking.email
 }
 console.log(advertise);
     fetch("http://localhost:5000/advertisments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`
       },
       body: JSON.stringify(advertise),
     })
@@ -124,7 +134,7 @@ console.log(advertise);
                  </td>
                  <td>
                    <button
-                     onClick={handleAdvertise(booking)}
+                     onClick={() => handleAdvertise(booking)}
                      className="btn btn-sm btn-primary"
                    >
                      Unsold

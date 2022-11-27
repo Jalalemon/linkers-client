@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
+import ConfirmationModal from '../Pages/Bookings/ConfirmationModal';
 
 const Allbuyers = () => {
     const buyers =useLoaderData();
-
+      const [deletingUsers, setDeletingUsers] = useState(null);
+      const closeMOdal = () => {
+        setDeletingUsers(null);
+      };
+        const handleDeleteUsers = (buyer) => {
+          fetch(`http://localhost:5000/users/${buyer._id}`, {
+            method: "DELETE",
+            headers: {
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.deletedCount > 0) {
+                toast.success(`product ${buyer.email} deleted successfully`);
+              }
+            });
+        }; 
     return (
       <div>
         <div className="overflow-x-auto">
@@ -22,11 +42,29 @@ const Allbuyers = () => {
                   <th>{i + 1}</th>
                   <td>{buyer.email}</td>
                   <td>{buyer.role}</td>
-                  <td> </td>
+                  <td>
+                    <label
+                      onClick={() => setDeletingUsers(buyer)}
+                      htmlFor="confirmation-modal"
+                      className="btn btn-sm btn-error"
+                    >
+                      Delete
+                    </label>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {deletingUsers && (
+            <ConfirmationModal
+              title={`are you sure you want to delete`}
+              message={`if you delete ${deletingUsers.name}`}
+              closeMOdal={closeMOdal}
+              successBtnName={"Delete"}
+              successAction={handleDeleteUsers}
+              modalData={deletingUsers}
+            ></ConfirmationModal>
+          )}
         </div>
       </div>
     );
