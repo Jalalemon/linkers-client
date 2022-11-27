@@ -8,11 +8,13 @@ import MyProducts from "../Dashboard/MyProducts";
 import AdminRoutes from "../Layout/AdminRoutes";
 import DashboardLayout from "../Layout/DashboardLayout";
 import AllUsers from "../Pages/Bookings/AllUsers";
+import Payment from "../Pages/Bookings/Payment";
 import MarcelCategories from "../Pages/Home/MarcelCategories";
 import SingerCategories from "../Pages/Home/SingerCategories";
 import WaltonCategories from "../Pages/Home/WaltonCategories";
 import Login from "../Pages/Login.js/Login";
 import Register from "../Pages/Register/Register";
+import DsplayError from "../Pages/shared/DsplayError";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../Layout/Main");
@@ -22,6 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <DsplayError></DsplayError>,
     children: [
       {
         path: "/",
@@ -56,6 +59,7 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <DsplayError></DsplayError>,
     children: [
       {
         path: "/dashboard",
@@ -77,11 +81,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/allbuyers",
         loader: () => fetch("http://localhost:5000/usersquery?role=Buyer"),
-        element: (
-       
-            <Allbuyers></Allbuyers>
-         
-        ),
+        element: <Allbuyers></Allbuyers>,
       },
       {
         path: "/dashboard/myorders",
@@ -90,6 +90,12 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/allusers",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/myOrder/${params.id}`),
       },
     ],
   },
