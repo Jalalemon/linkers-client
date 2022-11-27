@@ -1,15 +1,21 @@
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+
+import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
+import Loading from "./Loading";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 console.log(stripePromise);
 
 const Payment = () => {
   const bookings = useLoaderData();
+  const navigation = useNavigation();
+
+  if(navigation.state === 'loading'){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="text-center mt-8">
@@ -21,9 +27,9 @@ const Payment = () => {
         please pay <strong> ${bookings.balance}</strong> on {bookings.company}{" "}
       </p>
       <div className="w-96 my-12">
-        {/* <Elements stripe={stripePromise}>
+        <Elements stripe={stripePromise}>
           <CheckOutForm bookings={bookings}></CheckOutForm>
-        </Elements> */}
+        </Elements>
       </div>
     </div>
   );

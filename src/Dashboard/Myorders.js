@@ -11,11 +11,31 @@ const Myorders = () => {
       .then((data) => setMyOrder(data));
    }, [user.email])
     return (
-        <div>
-           {
-            myOrder.map(order => <MyCart key={order._id} order={order}> </MyCart> )
-           }
+      <div>
+        <div className="overflow-x-auto">
+          <table className="table w-full">
+            <thead>
+              <tr>
+                <th>no</th>
+                <th></th>
+                <th>product Name</th>
+                <th>price</th>
+                <th>address</th>
+                <th>phone</th>
+
+                <th>pay</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myOrder.map((order, i) => (
+                <MyCart key={order._id} i={i} order={order}>
+                  {" "}
+                </MyCart>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
     );
 };
 
