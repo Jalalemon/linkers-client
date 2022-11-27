@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookingModal from '../Bookings/BookingModal';
+import PrivateRout from '../shared/PrivateRout';
 import SingerCart from './SingerCart';
 
 
@@ -23,10 +24,12 @@ const SingerCategories = () => {
             ))}
           </div>
           {treatement && (
-            <BookingModal
-              treatement={treatement}
-              setTreatment={setTreatment}
-            ></BookingModal>
+            <PrivateRout>
+              <BookingModal
+                treatement={treatement}
+                setTreatment={setTreatment}
+              ></BookingModal>
+            </PrivateRout>
           )}
         </div>
       );

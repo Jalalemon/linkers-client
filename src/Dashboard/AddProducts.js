@@ -124,8 +124,9 @@ const navigate = useNavigate();
                   <input
                     {...register("company")}
                     type="text"
+                  
                     placeholder="company"
-                    className="input input-bordered"
+                    className="input uppercase input-bordered"
                   />
                 </div>
                 <div className="form-control">
@@ -137,6 +138,7 @@ const navigate = useNavigate();
                     type="text"
                     placeholder="price"
                     className="input input-bordered"
+                    required
                   />
                 </div>
                 <div className="form-control">
@@ -271,7 +273,7 @@ const navigate = useNavigate();
                     placeholder="registered"
                     value={onDate}
                     className="input input-bordered"
-                   
+                   readOnly
                   />
                 </div>
                 <div className="form-control">

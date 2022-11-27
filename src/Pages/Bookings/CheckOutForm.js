@@ -1,6 +1,8 @@
 import { async } from '@firebase/util';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOutForm = ({bookings}) => {
     const stripe = useStripe();
@@ -10,7 +12,9 @@ const CheckOutForm = ({bookings}) => {
     const {balance, email, _id, name} = bookings;
     const [success, setSuccess] = useState('');
     const [transactionId, seTransactionId] = useState('')
-    const [processing, setProcessing] = useState(false)
+    const [processing, setProcessing] = useState(false);
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetch("http://localhost:5000/create-payment-intent",{
             method: "POST",
@@ -85,6 +89,8 @@ const CheckOutForm = ({bookings}) => {
                 console.log(data);
                  setSuccess("Congrats your payment completed");
                  seTransactionId(paymentIntent.id);
+                 toast.success('your payment completed successfully');
+                navigate('/dashboard/myorders')
             })
             
 

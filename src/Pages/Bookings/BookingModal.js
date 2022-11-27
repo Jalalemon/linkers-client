@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContexts } from '../../auth/AuthProvider';
 
 const BookingModal = ({treatement, setTreatment}) => {
     console.log(treatement);
-    const {user} = useContext(AuthContexts)
+    const {user} = useContext(AuthContexts);
+    const navigate = useNavigate();
   const handleBooking = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -17,6 +19,7 @@ const BookingModal = ({treatement, setTreatment}) => {
    
     console.log(company, name, email,balance, location, phone);
         const booking = {
+          picture: treatement.picture,
           name,
           company,
           balance,
@@ -37,6 +40,7 @@ const BookingModal = ({treatement, setTreatment}) => {
              if (data.acknowledged) {
                setTreatment(null);
                toast.success("booking confirmed");
+               navigate('/dashboard/myorders')
             //    refetch();
              } else {
                toast.error(data.message);

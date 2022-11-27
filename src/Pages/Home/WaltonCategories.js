@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookingModal from '../Bookings/BookingModal';
+import PrivateRout from '../shared/PrivateRout';
 import Waltoncart from './Waltoncart';
 
 const WaltonCategories = () => {
@@ -22,10 +23,12 @@ const WaltonCategories = () => {
           ))}
         </div>
         {treatement && (
-          <BookingModal
-            treatement={treatement}
-            setTreatment={setTreatment}
-          ></BookingModal>
+          <PrivateRout>
+            <BookingModal
+              treatement={treatement}
+              setTreatment={setTreatment}
+            ></BookingModal>
+          </PrivateRout>
         )}
       </div>
     );

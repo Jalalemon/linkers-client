@@ -49,7 +49,7 @@ const MyproductCart = ({category}) => {
                    <td>{booking.appointmentDate}</td>
                    <td>{booking.slot} </td>
                    <td>
-                     {booking.price && !booking.paid && (
+                     {/* {booking.price && !booking.paid && (
                        <Link to={`/dashboard/payment/${booking._id}`}>
                          <button className="btn btn-sm btn-primary">pay</button>
                        </Link>
@@ -57,7 +57,7 @@ const MyproductCart = ({category}) => {
                      ,
                      {booking.price && booking.paid && (
                        <span className="text-primary">paid</span>
-                     )}
+                     )} */}
                    </td>
                  </tr>
                ))}

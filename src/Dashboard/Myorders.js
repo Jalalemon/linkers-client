@@ -17,10 +17,10 @@ const Myorders = () => {
             <thead>
               <tr>
                 <th>no</th>
-                <th></th>
+                <th>picture</th>
                 <th>product Name</th>
                 <th>price</th>
-                <th>address</th>
+                <th>Location</th>
                 <th>phone</th>
 
                 <th>pay</th>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ThereCategory = () => {
     return (
-      <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div className="grid gap-6 lg:grid-cols-3 mt-12 md:grid-cols-2 grid-cols-1">
         <div className="card card-compact shadow-2xl" data-theme="light">
           <figure>
             <img

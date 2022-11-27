@@ -29,7 +29,6 @@ const MyProducts = () => {
         return data;
       },
     });
-
       const handleDeleteUsers = (booking) => {
         fetch(`http://localhost:5000/myProducts/${booking._id}`, {
           method: "DELETE",
@@ -47,7 +46,40 @@ const MyProducts = () => {
           });
       }; 
 
-    if (isLoading) {
+       if (isLoading) {
+         return <Loading></Loading>;
+       }
+console.log(bookings);
+const handleAdvertise = (booking) =>{
+console.log('ok bro',booking);
+
+const advertise = {
+productId: booking._id,
+company: booking.company
+}
+console.log(advertise);
+    fetch("http://localhost:5000/advertisments", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(advertise),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(booking);
+        if (data.acknowledged) {
+          //  refetch();
+          // navigate("/dashboard/myproducts");
+        } else {
+          toast.error(data.message);
+        }
+      });
+
+
+}
+
+    if(isLoading) {
       return <Loading></Loading>;
     }
    return (
@@ -55,7 +87,8 @@ const MyProducts = () => {
        <table className="table w-full">
          <thead>
            <tr>
-             <th></th>
+             <th>No</th>
+             <th>Picture</th>
              <th>Name</th>
              <th>Price</th>
              <th>Date</th>
@@ -68,6 +101,15 @@ const MyProducts = () => {
              bookings?.map((booking, i) => (
                <tr key={i}>
                  <th>{i + 1}</th>
+                 <td>
+                   <figure className="px-10 pt-10">
+                     <img
+                       src={booking.picture}
+                       alt="Shoes"
+                       className=" w-full "
+                     />
+                   </figure>{" "}
+                 </td>
                  <td>{booking.company}</td>
                  <td>{booking.price ? booking.price : booking.balance} </td>
                  <td>{booking.registered}</td>
@@ -81,15 +123,24 @@ const MyProducts = () => {
                    </label>
                  </td>
                  <td>
-                   {booking.balance && !booking.paid && (
+                   <button
+                     onClick={handleAdvertise(booking)}
+                     className="btn btn-sm btn-primary"
+                   >
+                     Unsold
+                   </button>
+                   {/* <button>advertise</button> */}
+                   {/* {booking.balance && !booking.paid && (
                      <Link to={`/dashboard/payment/${booking._id}`}>
-                       <button className="btn btn-sm btn-primary">pay</button>
+                       <button onClick={handleAdvertise(booking)} className="btn btn-sm btn-primary">
+                         Unsold
+                       </button>
                      </Link>
                    )}
-                   ,
+                   
                    {booking.balance && booking.paid && (
                      <span className="text-primary">paid</span>
-                   )}
+                   )} */}
                  </td>
                </tr>
              ))}

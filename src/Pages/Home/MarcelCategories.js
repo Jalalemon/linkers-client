@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookingModal from '../Bookings/BookingModal';
+import PrivateRout from '../shared/PrivateRout';
 import MarcelCart from './MarcelCart';
 
 const MarcelCategories = () => {
@@ -14,14 +15,20 @@ const MarcelCategories = () => {
      <div className="">
        <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
          {categories.map((category) => (
-           <MarcelCart key={category._id} setTreatment={setTreatment} category={category}></MarcelCart>
+           <MarcelCart
+             key={category._id}
+             setTreatment={setTreatment}
+             category={category}
+           ></MarcelCart>
          ))}
        </div>
        {treatement && (
-         <BookingModal
-           treatement={treatement}
-           setTreatment={setTreatment}
-         ></BookingModal>
+         <PrivateRout>
+           <BookingModal
+             treatement={treatement}
+             setTreatment={setTreatment}
+           ></BookingModal>
+         </PrivateRout>
        )}
      </div>
    );

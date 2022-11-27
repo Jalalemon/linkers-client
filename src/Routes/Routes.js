@@ -9,12 +9,15 @@ import AdminRoutes from "../Layout/AdminRoutes";
 import DashboardLayout from "../Layout/DashboardLayout";
 import AllUsers from "../Pages/Bookings/AllUsers";
 import Payment from "../Pages/Bookings/Payment";
+import Advertise from "../Pages/Home/Advertise";
 import MarcelCategories from "../Pages/Home/MarcelCategories";
 import SingerCategories from "../Pages/Home/SingerCategories";
 import WaltonCategories from "../Pages/Home/WaltonCategories";
 import Login from "../Pages/Login.js/Login";
 import Register from "../Pages/Register/Register";
+import Blog from "../Pages/shared/Blog";
 import DsplayError from "../Pages/shared/DsplayError";
+import Errorpage from "../Pages/shared/Errorpage";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../Layout/Main");
@@ -24,11 +27,19 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    errorElement: <DsplayError></DsplayError>,
+    errorElement: <Errorpage></Errorpage>,
     children: [
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/advertise",
+        element: <Advertise></Advertise>,
       },
       {
         path: "/waltoncategories",
@@ -97,6 +108,7 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/myOrder/${params.id}`),
       },
+     
     ],
   },
 ]);
