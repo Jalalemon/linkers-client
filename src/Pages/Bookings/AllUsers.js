@@ -73,7 +73,7 @@ const AllUsers = () => {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
 
-                <td>
+                {/* <td>
                   {" "}
                   {user?.role !== "admin" && (
                     <button
@@ -83,7 +83,7 @@ const AllUsers = () => {
                       Make admin
                     </button>
                   )}{" "}
-                </td>
+                </td> */}
                 <td>
                  <label
                     onClick={() => setDeletingUsers(user)}

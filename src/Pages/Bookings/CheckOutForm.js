@@ -120,7 +120,7 @@ const CheckOutForm = ({bookings}) => {
           <button
             className="btn btn-sm btn-primary mt-5"
             type="submit"
-            // disabled={ !stripe !clientSecret || processing }
+            // disabled={ !stripe || !clientSecret || processing }
         
           >
             Pay

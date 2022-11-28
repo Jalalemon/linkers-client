@@ -119,7 +119,19 @@ const navigate = useNavigate();
               >
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Name</span>
+                    <span className="label-text">Your Name</span>
+                  </label>
+                  <input
+                    {...register("name")}
+                    type="text"
+                  
+                    placeholder="Your name"
+                    className="input uppercase input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Product Name</span>
                   </label>
                   <input
                     {...register("company")}

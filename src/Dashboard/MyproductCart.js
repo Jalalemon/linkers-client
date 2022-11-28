@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContexts } from '../auth/AuthProvider';
 import Loading from '../Pages/Bookings/Loading';
 
 const MyproductCart = ({category}) => {
     const { user } = useContext(AuthContexts);
-
+   const [myOrder, setMyOrder] = useState([]);
+  
     const url = `http://localhost:5000/allCategories?email=${user?.email}`;
     const { data: bookings = [], isLoading } = useQuery({
       queryKey: ["bookings", user?.email],
@@ -22,6 +23,8 @@ const MyproductCart = ({category}) => {
       },
     });
 
+     
+    
   if (isLoading) {
     return <Loading></Loading>;
   }

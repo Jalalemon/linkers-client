@@ -13,9 +13,18 @@ const MyProducts = () => {
     const { user } = useContext(AuthContexts);
  const [deletingUsers, setDeletingUsers] = useState(null);
  const [isAdvertised, setIsAdvetised] = useState(false)
+  // const [myOrder, setMyOrder] = useState([]);
  const closeMOdal = () => {
    setDeletingUsers(null);
  };
+//  useEffect(() => {
+//    fetch(`http://localhost:5000/myOrder?email=${user?.email}`)
+//      .then((res) => res.json())
+//      .then((data) => setMyOrder(data));
+//  }, [user.email]);
+
+
+
     const url = `http://localhost:5000/myProducts?email=${user?.email}`;
     const { data: bookings = [], refetch, isLoading } = useQuery({
       queryKey: ["bookings", user?.email],
@@ -57,6 +66,7 @@ console.log('ok bro',booking);
 const advertise = {
 productId: booking._id,
 company: booking.company,
+name: booking.name,
 balance: booking.balance,
 picture: booking.picture,
 condition: booking.condition,
@@ -88,8 +98,9 @@ console.log(advertise);
         }
       });
 
-
+       
 }
+
     
     if(isLoading) {
       return <Loading></Loading>;
@@ -125,6 +136,7 @@ console.log(advertise);
                  <td>{booking.company}</td>
                  <td>{booking.price ? booking.price : booking.balance} </td>
                  <td>{booking.registered}</td>
+                
                  <td>
                    <label
                      onClick={() => setDeletingUsers(booking)}

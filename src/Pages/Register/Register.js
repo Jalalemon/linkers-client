@@ -39,7 +39,7 @@ const { createUser, updateUser } = useContext(AuthContexts);
           updateUser(userInfo)
           .then(() => {
 
-            saveUser(data.name, data.email)
+            saveUser(data.name,data.role, data.email)
             // navigate("/");
            
           } )
@@ -53,8 +53,8 @@ const { createUser, updateUser } = useContext(AuthContexts);
     })
   };
 
-  const saveUser = (name, email) => {
-    const user = { name, email };
+  const saveUser = (name, role, email) => {
+    const user = { name, role, email };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
@@ -136,6 +136,20 @@ const { createUser, updateUser } = useContext(AuthContexts);
                 </p>
               )}
             </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Choose account</span>
+              </label>
+              <select
+                {...register("role")}
+                name="role"
+                className="select select-bordered max-w-xs w-full"
+              >
+                <option defaultValue="Buyer">Buyer</option>
+                <option value="seller">Seller</option>
+              </select>
+            </div>
+
             <div className="form-control mt-6">
               <button className="btn type='submit' btn-primary">Sign up</button>
             </div>

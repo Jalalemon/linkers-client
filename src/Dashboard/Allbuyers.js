@@ -5,6 +5,7 @@ import ConfirmationModal from '../Pages/Bookings/ConfirmationModal';
 
 const Allbuyers = () => {
     const buyers =useLoaderData();
+    const [reload, setReload] = useState(true);
       const [deletingUsers, setDeletingUsers] = useState(null);
       const closeMOdal = () => {
         setDeletingUsers(null);
@@ -20,9 +21,10 @@ const Allbuyers = () => {
             .then((data) => {
               console.log(data);
               if (data.deletedCount > 0) {
-                toast.success(`product ${buyer.email} deleted successfully`);
+                toast.success(`product ${buyer.email} deleted successfully`)
+                setReload(!reload)
               }
-            });
+            }, [reload]);
         }; 
     return (
       <div>
@@ -31,6 +33,7 @@ const Allbuyers = () => {
             <thead>
               <tr>
                 <th>{buyers.length} </th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Delete</th>
@@ -40,6 +43,7 @@ const Allbuyers = () => {
               {buyers?.map((buyer, i) => (
                 <tr key={buyer._id}>
                   <th>{i + 1}</th>
+                  <td>{buyer.name}</td>
                   <td>{buyer.email}</td>
                   <td>{buyer.role}</td>
                   <td>
