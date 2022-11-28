@@ -12,6 +12,7 @@ import MyproductCart from './MyproductCart';
 const MyProducts = () => {
     const { user } = useContext(AuthContexts);
  const [deletingUsers, setDeletingUsers] = useState(null);
+ const [isAdvertised, setIsAdvetised] = useState(false)
  const closeMOdal = () => {
    setDeletingUsers(null);
  };
@@ -79,7 +80,8 @@ console.log(advertise);
       .then((data) => {
         console.log(booking);
         if (data.acknowledged) {
-          //  refetch();
+           refetch();
+           setIsAdvetised(true)
           // navigate("/dashboard/myproducts");
         } else {
           toast.error(data.message);
@@ -88,7 +90,7 @@ console.log(advertise);
 
 
 }
-
+    
     if(isLoading) {
       return <Loading></Loading>;
     }
@@ -137,7 +139,7 @@ console.log(advertise);
                      onClick={() => handleAdvertise(booking)}
                      className="btn btn-sm btn-primary"
                    >
-                     Unsold
+                     {isAdvertised ? "Advertised" : "Advertise"}
                    </button>
                    {/* <button>advertise</button> */}
                    {/* {booking.balance && !booking.paid && (

@@ -1,24 +1,45 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
+import { AuthContexts } from '../../auth/AuthProvider';
+import Loading from '../Bookings/Loading';
+import AdvertiseCart from './AdvertiseCart';
 
 const Advertise = () => {
-    
+    const {user} = useContext(AuthContexts)
+       const url = `http://localhost:5000/advertiseHome?email=${user?.email}`;
+       const { data: advertise = [], isLoading } = useQuery({
+         queryKey: ["advertise", user?.email],
+         queryFn: async () => {
+           const res = await fetch(url, {
+             headers: {
+               authorization: `bearer ${localStorage.getItem("accessToken")}`,
+             },
+           });
+           const data = await res.json();
+           console.log(data);
+           return data;
+         },
+       });
+
+       if (isLoading) {
+         return <Loading></Loading>;
+       }
     return (
       <div>
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <figure>
-            <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">
-              Shoes!
-              <div className="badge badge-secondary">NEW</div>
-            </h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <div className="badge badge-outline">Fashion</div>
-              <div className="badge badge-outline">Products</div>
-            </div>
-          </div>
+        <div className="text-3xl my-6 font-semibold"> Addvertise</div>
+        <div>
+            {
+                advertise.length === 0 &&
+                <div className="text-xl"> Have no advertise </div>
+            }
+        </div>
+        <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2 grid-cols-1">
+          {advertise.map((category) => (
+            <AdvertiseCart
+              key={category._id}
+              category={category}
+            ></AdvertiseCart>
+          ))}
         </div>
       </div>
     );
