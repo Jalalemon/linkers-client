@@ -6,7 +6,7 @@ import AdvertiseCart from './AdvertiseCart';
 
 const Advertise = () => {
     const {user} = useContext(AuthContexts)
-       const url = `http://localhost:5000/advertiseHome?email=${user?.email}`;
+       const url = `https://linkers-server.vercel.app/advertiseHome?email=${user?.email}`;
        const { data: advertise = [], isLoading } = useQuery({
          queryKey: ["advertise", user?.email],
          queryFn: async () => {

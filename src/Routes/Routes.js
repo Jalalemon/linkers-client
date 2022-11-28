@@ -98,7 +98,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allsellers",
-        loader: () => fetch("http://localhost:5000/usersquery?role=seller"),
+        loader: () => fetch("https://linkers-server.vercel.app/usersquery?role=seller"),
         element: (
           <AdminRoutes>
             <Allsellers></Allsellers>
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allbuyers",
-        loader: () => fetch("http://localhost:5000/usersquery?role=Buyer"),
+        loader: () => fetch("https://linkers-server.vercel.app/usersquery?role=Buyer"),
         element: (
           <AdminRoutes>
             <Allbuyers></Allbuyers>
@@ -131,7 +131,7 @@ const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/myOrder/${params.id}`),
+          fetch(`https://linkers-server.vercel.app/myOrder/${params.id}`),
       },
     ],
   },

@@ -1,31 +1,47 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 import ConfirmationModal from '../Pages/Bookings/ConfirmationModal';
+import Loading from '../Pages/Bookings/Loading';
 
 const Allbuyers = () => {
-    const buyers =useLoaderData();
-    const [reload, setReload] = useState(true);
+    // const buyers =useLoaderData();
+   
       const [deletingUsers, setDeletingUsers] = useState(null);
       const closeMOdal = () => {
         setDeletingUsers(null);
       };
-        const handleDeleteUsers = (buyer) => {
-          fetch(`http://localhost:5000/users/${buyer._id}`, {
-            method: "DELETE",
-            headers: {
-              authorization: `bearer ${localStorage.getItem("accessToken")}`,
-            },
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              if (data.deletedCount > 0) {
-                toast.success(`product ${buyer.email} deleted successfully`)
-                setReload(!reload)
-              }
-            }, [reload]);
-        }; 
+
+ const { data: buyers = [], refetch, isLoading } = useQuery({
+   queryKey: ["buyers"],
+   queryFn: async () => {
+     const res = await fetch("https://linkers-server.vercel.app/usersquery?role=Buyer");
+     const data = await res.json();
+     return data;
+   },
+ });
+ const handleDeleteUsers = (buyer) => {
+   fetch(`https://linkers-server.vercel.app/users/${buyer._id}`, {
+     method: "DELETE",
+     headers: {
+       authorization: `bearer ${localStorage.getItem("accessToken")}`,
+     },
+   })
+     .then((res) => res.json())
+     .then((data) => {
+       console.log(data);
+       if (data.deletedCount > 0) {
+         toast.success(`doctor ${buyer.name} deleted successfully`);
+         refetch();
+       }
+     });
+ }; 
+
+
+if(isLoading){
+  <Loading></Loading>
+}
     return (
       <div>
         <div className="overflow-x-auto">

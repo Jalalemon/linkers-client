@@ -44,23 +44,23 @@ const { user } = useContext(AuthContexts);
         setLoginError(error.message);
       });
 
-      fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.acknowledged) {
-            //    refetch();
-            navigate(from, { replace: true });
-          } else {
-            toast.error(data.message);
-          }
-        });
+      // fetch("https://linkers-server.vercel.app/users", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(data),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     if (data.acknowledged) {
+      //       //    refetch();
+      //       navigate(from, { replace: true });
+      //     } else {
+      //       toast.error(data.message);
+      //     }
+      //   });
   };
   const handleGoogleSignIn = () => {
     signInGoogle()
@@ -116,7 +116,7 @@ const { user } = useContext(AuthContexts);
               </p>
             )}
           </div>
-          <label className="label">
+          {/* <label className="label">
             <span className="label-text">Choose account</span>
           </label>
           <select
@@ -126,7 +126,7 @@ const { user } = useContext(AuthContexts);
           >
             <option defaultValue='Buyer'>Buyer</option>
             <option value="seller">Seller</option>
-          </select>
+          </select> */}
           <input
             className="btn btn-accent w-full"
             value="login"

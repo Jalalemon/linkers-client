@@ -55,7 +55,7 @@ const { createUser, updateUser } = useContext(AuthContexts);
 
   const saveUser = (name, role, email) => {
     const user = { name, role, email };
-    fetch("http://localhost:5000/users", {
+    fetch("https://linkers-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

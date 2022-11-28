@@ -25,7 +25,7 @@ const navigate = useNavigate();
     
     <>
       {
-      fetch("http://localhost:5000/allCategories", {
+      fetch("https://linkers-server.vercel.app/allCategories", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -44,7 +44,7 @@ const navigate = useNavigate();
         })
         }
       {data.category === "singer" &&
-        fetch("http://localhost:5000/singers", {
+        fetch("https://linkers-server.vercel.app/singers", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -64,7 +64,7 @@ const navigate = useNavigate();
           })}
       ,
       {data.category === "walton" &&
-        fetch("http://localhost:5000/walton", {
+        fetch("https://linkers-server.vercel.app/walton", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -84,7 +84,7 @@ const navigate = useNavigate();
           })}
       ,
       {data.category === "marcel" &&
-        fetch("http://localhost:5000/marcel", {
+        fetch("https://linkers-server.vercel.app/marcel", {
           method: "POST",
           headers: {
             "content-type": "application/json",

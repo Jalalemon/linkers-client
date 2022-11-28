@@ -8,7 +8,7 @@ const SingerCategories = () => {
       const [categories, setCategories] = useState([]);
        const [treatement, setTreatment] = useState(null);
       useEffect(() => {
-        fetch("http://localhost:5000/singerCategories")
+        fetch("https://linkers-server.vercel.app/singerCategories")
           .then((res) => res.json())
           .then((data) => setCategories(data));
       }, []);

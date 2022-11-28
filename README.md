@@ -2,7 +2,7 @@
 
 
 ## `1. project name: Linkers.com`
-live website link [https://wildlife-studio.web.app/](https://wildlife-studio.web.app/)
+live website link [https://linkers-sell.web.app/](https://linkers-sell.web.app/)
 ### created by Jalal uddin emon
 
 In the project directory used deployed b6a12-service-review-client-side-Jalalemon created by GitHub Classroom:

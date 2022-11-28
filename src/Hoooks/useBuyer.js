@@ -5,7 +5,7 @@ const useBuyer = (email) => {
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/users/Buyer/${email}`)
+      fetch(`https://linkers-server.vercel.app/users/Buyer/${email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

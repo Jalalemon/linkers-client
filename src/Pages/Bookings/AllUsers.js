@@ -11,15 +11,13 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch("https://linkers-server.vercel.app/users");
       const data = await res.json();
       return data;
     },
   });
-
-
-      const handleDeleteUsers = (user) => {
-        fetch(`http://localhost:5000/users/${user._id}`, {
+  const handleDeleteUsers = (user) => {
+        fetch(`https://linkers-server.vercel.app/users/${user._id}`, {
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -35,22 +33,6 @@ const AllUsers = () => {
           });
       }; 
 
-  const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount > 0) {
-          toast.success("Make admin successfully");
-          refetch();
-        }
-      });
-  };
   return (
     <div>
       <div className="overflow-x-auto">

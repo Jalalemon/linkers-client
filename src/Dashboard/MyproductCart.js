@@ -8,7 +8,7 @@ const MyproductCart = ({category}) => {
     const { user } = useContext(AuthContexts);
    const [myOrder, setMyOrder] = useState([]);
   
-    const url = `http://localhost:5000/allCategories?email=${user?.email}`;
+    const url = `https://linkers-server.vercel.app/allCategories?email=${user?.email}`;
     const { data: bookings = [], isLoading } = useQuery({
       queryKey: ["bookings", user?.email],
       queryFn: async () => {

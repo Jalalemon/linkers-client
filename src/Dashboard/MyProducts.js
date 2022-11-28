@@ -18,14 +18,14 @@ const MyProducts = () => {
    setDeletingUsers(null);
  };
 //  useEffect(() => {
-//    fetch(`http://localhost:5000/myOrder?email=${user?.email}`)
+//    fetch(`https://linkers-server.vercel.app/myOrder?email=${user?.email}`)
 //      .then((res) => res.json())
 //      .then((data) => setMyOrder(data));
 //  }, [user.email]);
 
 
 
-    const url = `http://localhost:5000/myProducts?email=${user?.email}`;
+    const url = `https://linkers-server.vercel.app/myProducts?email=${user?.email}`;
     const { data: bookings = [], refetch, isLoading } = useQuery({
       queryKey: ["bookings", user?.email],
       queryFn: async () => {
@@ -40,7 +40,7 @@ const MyProducts = () => {
       },
     });
       const handleDeleteUsers = (booking) => {
-        fetch(`http://localhost:5000/myProducts/${booking._id}`, {
+        fetch(`https://linkers-server.vercel.app/myProducts/${booking._id}`, {
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -78,7 +78,7 @@ registered: booking.registered,
 email: booking.email
 }
 console.log(advertise);
-    fetch("http://localhost:5000/advertisments", {
+    fetch("https://linkers-server.vercel.app/advertisments", {
       method: "POST",
       headers: {
         "content-type": "application/json",

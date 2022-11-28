@@ -6,7 +6,7 @@ const Myorders = () => {
     const [myOrder, setMyOrder] = useState([]);
     const {user} = useContext(AuthContexts)
    useEffect(() => {
-    fetch(`http://localhost:5000/myOrder?email=${user?.email}`)
+    fetch(`https://linkers-server.vercel.app/myOrder?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyOrder(data));
    }, [user.email])

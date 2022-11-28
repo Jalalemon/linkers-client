@@ -7,7 +7,7 @@ const MarcelCategories = () => {
    const [categories, setCategories] = useState([]);
       const [treatement, setTreatment] = useState(null);
    useEffect(() => {
-     fetch("http://localhost:5000/marcelCategories")
+     fetch("https://linkers-server.vercel.app/marcelCategories")
        .then((res) => res.json())
        .then((data) => setCategories(data));
    }, []);

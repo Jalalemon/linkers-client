@@ -7,7 +7,7 @@ const WaltonCategories = () => {
     const [categories, setCategories] = useState([]);
       const [treatement, setTreatment] = useState(null);
     useEffect(() => {
-      fetch("http://localhost:5000/waltonCategories")
+      fetch("https://linkers-server.vercel.app/waltonCategories")
         .then((res) => res.json())
         .then((data) => setCategories(data));
     }, []);
